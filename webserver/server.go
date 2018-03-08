@@ -1,16 +1,22 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
+	"time"
 )
 
-type person struct {
-	Name string `json:"name"`
-	Age  int    `json:"Age"`
+type System struct {
+	ID           string `json:"id"`
+	Name         string `json:"name"`
+	Version      string `json:"version"`
+	Serial       string `json:"serial"`
+	Product      string `json:"product"`
+	Model        string `json:"model"`
+	GuestEnabled bool   `json:"guestEnabled"`
 }
 
 func main() {
@@ -22,16 +28,32 @@ func main() {
 		}
 		w.Header().Set("Content-Type", "application/json")
 
-		jsonFile, err := os.Open("data.json")
-		if err != nil {
-			fmt.Println(err)
+		url := "http://192.168.198.48:81/api/v1/getSystemDetails"
+
+		httpClient := http.Client{
+			Timeout: time.Second * 2,
 		}
-		fmt.Println("data.json seuccessfully opened!")
-		defer jsonFile.Close()
 
-		data, _ := ioutil.ReadAll(jsonFile)
+		req, err := http.NewRequest(http.MethodGet, url, nil)
+		if err != nil {
+			log.Fatal(err)
+		}
 
+		res, getErr := httpClient.Do(req)
+		if getErr != nil {
+			log.Fatal(getErr)
+		}
+
+		data, _ := ioutil.ReadAll(res.Body)
+		res.Body.Close()
+
+		system := System{}
+		jsonErr := json.Unmarshal(data, &system)
+		if jsonErr != nil {
+			log.Fatal(jsonErr)
+		}
 		fmt.Fprintf(w, "%s", data)
+
 	})
 
 	fmt.Println("Started server on port 2000")
