@@ -2,6 +2,10 @@ package main
 
 import "fmt"
 
+var text = "this is stored in the variable a"          // package scope
+var btext, ctext string = "stored in b", "stored in c" // package scope
+var dtext string                                       // package scope
+
 func main() {
 
 	/* These are shorthand variables */
@@ -23,10 +27,10 @@ func main() {
 	fmt.Printf("%T \n", f)
 
 	// Zero-value variables, which will be assigned later in case...
-	var ab int
-	var ba string
-	var cb float64
-	var dc bool
+	var ab int     // function scope
+	var ba string  // function scope
+	var cb float64 // function scope
+	var dc bool    // function scope
 
 	fmt.Printf("%v \n", ab)
 	fmt.Printf("%v \n", ba)
@@ -34,5 +38,20 @@ func main() {
 	fmt.Printf("%v \n", dc)
 
 	fmt.Println()
+
+	// Declare as many as you want and then assign it later!
+	var chatMessage string
+	var k, l, m int
+	k = 1
+
+	chatMessage = "Hello World!"
+
+	fmt.Println(chatMessage, k, l, m)
+
+	// Init as many as you want!
+	var message = "Hello World!"
+	var x, y, z int = 1, 2, 3
+
+	fmt.Println(message, x, y, z)
 
 }
