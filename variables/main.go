@@ -22,4 +22,17 @@ func main() {
 	fmt.Printf("%T \n", e)
 	fmt.Printf("%T \n", f)
 
+	// Zero-value variables, which will be assigned later in case...
+	var ab int
+	var ba string
+	var cb float64
+	var dc bool
+
+	fmt.Printf("%v \n", ab)
+	fmt.Printf("%v \n", ba)
+	fmt.Printf("%v \n", cb)
+	fmt.Printf("%v \n", dc)
+
+	fmt.Println()
+
 }
