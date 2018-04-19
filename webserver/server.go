@@ -9,6 +9,7 @@ import (
 	"time"
 )
 
+// System is the structure of Box details which is similiar to the API
 type System struct {
 	ID           string `json:"id"`
 	Name         string `json:"name"`
@@ -22,7 +23,6 @@ type System struct {
 func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		/* http.Error(w, "not found", http.StatusNotFound) */
 		if r.Method == "GET" {
 			w.Header().Set("Access-Control-Allow-Origin", "*")
 		}
@@ -56,6 +56,6 @@ func main() {
 
 	})
 
-	fmt.Println("Started server on port 2000")
+	fmt.Println("Server is listening on Port 2000...")
 	log.Fatal(http.ListenAndServe(":2000", nil))
 }
