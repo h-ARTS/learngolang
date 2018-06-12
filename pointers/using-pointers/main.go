@@ -7,16 +7,16 @@ import (
 func main() {
 	a := 43
 
-	fmt.Println(a)
-	fmt.Println(&a)
+	fmt.Println(a)  // 43
+	fmt.Println(&a) // 0xc420014078
 
 	var b *int = &a
 
-	fmt.Println(b)
-	fmt.Println(*b)
+	fmt.Println(b)  // 0xc420014078
+	fmt.Println(*b) // 43
 
-	*b = 42 // b says, "The value at this address, change it to 42"
-	fmt.Println(a)
+	*b = 42        // b says, "The value at this address, change it to 42"
+	fmt.Println(a) // 42
 
 	// this is useful
 	// we can pass a memory address instad of a bunch of values (we can pass a reference)
